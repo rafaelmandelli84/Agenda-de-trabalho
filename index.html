@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#183d32"><meta name="description" content="Agenda de trabalho offline com exportação para Excel">
+<link rel="manifest" href="manifest.json"><link rel="icon" href="icons/icon-192.png"><link rel="stylesheet" href="style.css">
+<title>Agenda de Trabalho</title>
+</head>
+<body>
+<header class="topbar"><div class="brandmark">AT</div><div><h1>Agenda de Trabalho</h1><p>Registro diário • Offline</p></div><span id="offlineBadge" class="badge">Verificando…</span></header>
+<main>
+<section class="summary"><div><span class="muted">Registros salvos neste aparelho</span><strong id="recordCount">0</strong></div><div><span class="muted">Horas líquidas no período</span><strong id="periodHours">0h00</strong></div></section>
+<section class="panel">
+<div class="section-title"><div><h2 id="formTitle">Novo registro</h2><p>Preencha os horários e descreva o serviço.</p></div><span class="calendar-icon">▦</span></div>
+<form id="entryForm">
+<input type="hidden" id="recordId">
+<div class="field"><label for="date">Data</label><input id="date" type="date" required value="2026-10-27"></div>
+<div class="two-col"><div class="field"><label for="start">Início do trabalho</label><input id="start" type="time" required value="08:00"></div><div class="field"><label for="end">Fim do trabalho</label><input id="end" type="time" required value="17:00"></div></div>
+<div class="two-col"><div class="field"><label for="breakStart">Início do intervalo</label><input id="breakStart" type="time" value="12:00"></div><div class="field"><label for="breakEnd">Fim do intervalo</label><input id="breakEnd" type="time" value="13:00"></div></div>
+<div class="field"><label for="timezone">Fuso horário de partida (horas)</label><input id="timezone" type="number" step="0.25" value="0"></div>
+<div class="field"><label for="activity">Atividade realizada</label><textarea id="activity" rows="2" placeholder="Ex.: Manutenção da máquina">Manutenção da máquina</textarea></div>
+<div class="field"><label for="observations">Observações</label><textarea id="observations" rows="2" placeholder="Observações opcionais"></textarea></div>
+<div class="workcalc"><div><span class="muted">Tempo entre início e fim</span><strong id="grossHours">9h00</strong></div><div><span class="muted">Intervalo</span><strong id="breakHours">1h00</strong></div><div class="net"><span>Horas líquidas estimadas</span><strong id="netHours">8h00</strong></div><small>Estimativa simples. Horas extras e adicionais continuam sendo calculados pela sua planilha.</small></div>
+<div class="actions"><button type="submit" class="primary" id="saveBtn">Salvar no aparelho</button><button type="button" class="secondary" id="clearBtn">Limpar formulário</button></div>
+<p class="local-note">🔒 Os registros ficam neste aparelho. Nada é enviado para a internet nem gravado no Excel.</p>
+</form>
+</section>
+<section class="panel">
+<div class="section-title"><div><h2>Registros do aparelho</h2><p>Revise, edite ou remova antes de exportar.</p></div></div>
+<div class="field"><label for="exportMonth">Mês para exportar para o Excel</label><input id="exportMonth" type="month" value="2026-10"></div><div class="toolbar"><button id="exportCsv" class="primary">Exportar mês em CSV</button><button id="backupJson" class="secondary">Backup JSON completo</button><label class="file-button secondary">Restaurar backup<input id="restoreJson" type="file" accept="application/json,.json" hidden></label></div>
+<div id="recordsList" class="records-list"></div>
+<div class="danger-row"><button id="deleteAll" class="danger">Apagar todos os registros locais</button></div>
+</section>
+<section class="panel excel-info"><h2>Importação no Excel</h2><p>O CSV contém somente a data (para localizar o dia) e os quatro horários. A macro preenche apenas H:K na aba <b>Planilha</b>. As opções como Feriado, Viagem contra turno, Phone Support, After Hours e Stand by devem ser marcadas diretamente no Excel. As fórmulas permanecem intactas.</p><p><b>Importante:</b> teste primeiro em uma cópia do arquivo .xlsm.</p></section>
+</main>
+<footer>Agenda de Trabalho · versão 0.5</footer>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body></html>

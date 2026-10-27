@@ -1,0 +1,41 @@
+AGENDA DE TRABALHO — VERSÃO INICIAL 0.1
+
+O QUE ESTA VERSÃO FAZ
+- Formulário diário de horários, intervalo, atividade e observações. As opções/checkboxes são marcadas diretamente na planilha Excel.
+- Guarda registros localmente no navegador/aparelho (localStorage).
+- Permite editar/excluir registros e exportar um CSV por mês.
+- Permite fazer backup/restaurar registros em JSON.
+- Inclui service worker e manifest para instalação como PWA e uso offline após a primeira abertura online.
+- Inclui um módulo VBA de importação para a planilha .xlsm.
+
+IMPORTANTE SOBRE O EXEMPLO
+A tela abre pré-preenchida com 27/10/2026, 08:00–17:00, intervalo 12:00–13:00 e atividade “Manutenção da máquina”. Esse exemplo ainda não é salvo automaticamente. Clique em “Salvar no aparelho” para gravá-lo apenas no armazenamento local do navegador.
+
+COMO TESTAR NO COMPUTADOR
+1. Extraia a pasta ZIP.
+2. Para testar a interface, abra index.html. Salvamento e exportação funcionam, mas service worker/PWA offline não são ativados pelo protocolo file://.
+3. Para testar a instalação e o modo offline, publique os arquivos em um endereço HTTPS (por exemplo, GitHub Pages) ou execute um servidor local de desenvolvimento. Abra a URL uma vez online; depois teste em modo avião.
+4. No iPhone, abra a URL HTTPS no Safari, toque em Compartilhar e escolha “Adicionar à Tela de Início”. Os nomes dos menus podem variar conforme a versão do iOS.
+
+DADOS E PRIVACIDADE
+- Não há servidor, conta ou sincronização nesta versão.
+- Os registros ficam no armazenamento do navegador desse aparelho. Limpar os dados do site/navegador pode apagá-los; exporte backups JSON periodicamente.
+- CSV e JSON só são gerados quando você toca nos botões correspondentes.
+- O aplicativo não grava nem abre automaticamente o arquivo Excel.
+
+IMPORTAÇÃO PARA EXCEL — USE PRIMEIRO UMA CÓPIA
+A planilha original identificada tem as abas Planilha, Relatorio e ComboBox. Na aba Planilha, as entradas de cada dia ficam em C:L; B contém as datas calculadas e M em diante contém fórmulas.
+
+1. Faça uma cópia do arquivo .xlsm e abra a cópia no Excel desktop.
+2. Pressione ALT+F11 para abrir o Editor do VBA.
+3. No Editor, escolha Arquivo > Importar arquivo... e selecione vba/ImportarAgenda.bas.
+4. Volte ao Excel e execute a macro ImportarAgendaCSV (Alt+F8).
+5. Escolha o CSV exportado pelo app. Exporte um mês por vez pelo seletor “Mês para exportar para o Excel”.
+6. Confira os horários e resultados de horas extras. A macro altera B3/E3 para o ano/mês do CSV; não escreve nas datas B8:B38, nas opções C:G, no fuso L nem nas fórmulas M em diante. Ela escreve somente H:K.
+7. Salve a cópia no formato .xlsm.
+
+CUIDADOS
+- A macro pede confirmação antes da importação e pergunta antes de substituir horários já preenchidos. Se responder Não, esse registro é ignorado.
+- O arquivo deve conter os nomes de aba/células esperados pela macro. Não execute em outra planilha sem adaptar e testar o código.
+- Teste situações especiais (virada de dia, sábado, feriado e adicionais noturnos) numa cópia e compare com o resultado esperado. Esta versão não calcula horas extras no app; os cálculos ficam no Excel.
+- Não é um aplicativo publicado na App Store; é uma PWA que pode ser adicionada à tela inicial.
