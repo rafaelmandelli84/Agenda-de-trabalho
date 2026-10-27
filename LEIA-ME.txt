@@ -31,7 +31,7 @@ A planilha original identificada tem as abas Planilha, Relatorio e ComboBox. Na 
 3. No Editor, escolha Arquivo > Importar arquivo... e selecione vba/ImportarAgenda.bas.
 4. Volte ao Excel e execute a macro ImportarAgendaCSV (Alt+F8).
 5. Escolha o CSV exportado pelo app. Exporte um mês por vez pelo seletor “Mês para exportar para o Excel”.
-6. Confira os horários e resultados de horas extras. A macro altera B3/E3 para o ano/mês do CSV; não escreve nas datas B8:B38, nas opções C:G, no fuso L nem nas fórmulas M em diante. Ela escreve somente H:K.
+6. Confira os horários e resultados de horas extras. A macro altera B3/E3 para o ano/mês do CSV; não escreve nas datas B8:B38, nas opções C:G nem nas fórmulas M em diante. Ela escreve H:K e também o fuso horário na coluna L quando o CSV contém esse campo.
 7. Salve a cópia no formato .xlsm.
 
 CUIDADOS
